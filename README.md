@@ -1,0 +1,1 @@
+Project for handling basic payment information obtained from the bank ## TODO finish the readme with all details
