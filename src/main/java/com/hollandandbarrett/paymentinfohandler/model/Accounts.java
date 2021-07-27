@@ -1,25 +1,18 @@
 package com.hollandandbarrett.paymentinfohandler.model;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Accounts {
 
-    private List<Account> accountList;
+    @JsonProperty("accounts")
+    private List<Account> accounts;
 
-    public Accounts() {
-        this.accountList = new ArrayList<>();
-    }
-
-    public Accounts(List<Account> accounts) {
-        this.accountList = accounts;
-    }
-
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
-    }
 }

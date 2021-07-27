@@ -22,19 +22,33 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("message", ex.getMessage());
+        body.put("error", ex.getMessage());
+        body.put("source", "service");
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<Object> handleApiError(
+    public ResponseEntity<Object> handleApiClientError(
             HttpClientErrorException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("message", ex.getMessage());
+        body.put("error", ex.getMessage());
+        body.put("source", "external");
 
         return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(BankApiException.class)
+    public ResponseEntity<Object> handleBankApiNullResponseError(
+            HttpClientErrorException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("error", ex.getMessage());
+        body.put("source", "external");
+
+        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

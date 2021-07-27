@@ -1,7 +1,7 @@
 package com.hollandandbarrett.paymentinfohandler.service;
 
 import com.hollandandbarrett.paymentinfohandler.model.Account;
-import com.hollandandbarrett.paymentinfohandler.model.SpendingByCountry;
+import com.hollandandbarrett.paymentinfohandler.model.SpendingData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,9 +25,9 @@ public class PaymentServiceTest {
 
     @Test
     public void shouldGetPreviousMonthSpending() {
-        SpendingByCountry spending1 = new SpendingByCountry();
+        SpendingData spending1 = new SpendingData();
         spending1.setTotalSpent(444.33);
-        SpendingByCountry spending2 = new SpendingByCountry();
+        SpendingData spending2 = new SpendingData();
         spending2.setTotalSpent(111.22);
 
         Account acct1 = new Account();
@@ -36,7 +36,7 @@ public class PaymentServiceTest {
         acct2.setAccountUid("acct2");
 
         when(finBodyProxy.getAccounts(anyString())).thenReturn(List.of(acct1, acct2));
-        when(finBodyProxy.getSpendingByCountry(anyString(), anyString(), anyString(), anyString()))
+        when(finBodyProxy.getSpending(anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(spending1).thenReturn(spending2);
 
         Double totalSpent = paymentService.getPreviousMonthSpending("test");

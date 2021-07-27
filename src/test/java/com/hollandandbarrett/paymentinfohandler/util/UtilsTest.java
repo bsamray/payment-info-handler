@@ -26,4 +26,10 @@ public class UtilsTest {
                 .isEqualTo(Year.of(2020));
     }
 
+    @Test
+    public void testFormatAmount() {
+        assertThat(Utils.formatForAmountDisplay(1.0)).isEqualTo("1.00");
+        assertThat(Utils.formatForAmountDisplay(200.6)).isEqualTo("200.60");
+    }
+
 }

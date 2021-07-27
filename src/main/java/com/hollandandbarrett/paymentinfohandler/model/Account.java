@@ -1,66 +1,33 @@
 package com.hollandandbarrett.paymentinfohandler.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Account {
 
+    @JsonProperty("accountUid")
     private String accountUid;
 
+    @JsonProperty("accountType")
     private AccountType accountType;
 
+    @JsonProperty("defaultCategory")
     private String defaultCategory;
 
+    @JsonProperty("currency")
     private Currency currency;
 
+    @JsonProperty("createdAt")
     private LocalDateTime createdAt;
 
+    @JsonProperty("name")
     private String name;
 
-    public String getAccountUid() {
-        return accountUid;
-    }
-
-    public void setAccountUid(String accountUid) {
-        this.accountUid = accountUid;
-    }
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
-
-    public String getDefaultCategory() {
-        return defaultCategory;
-    }
-
-    public void setDefaultCategory(String defaultCategory) {
-        this.defaultCategory = defaultCategory;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

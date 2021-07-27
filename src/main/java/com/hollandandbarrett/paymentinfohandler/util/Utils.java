@@ -1,6 +1,8 @@
 package com.hollandandbarrett.paymentinfohandler.util;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 
 public class Utils {
 
@@ -10,6 +12,10 @@ public class Utils {
 
     public static Year getYearOfPreviousMonth(LocalDate localDate) {
         return Year.from(localDate.minusMonths(1));
+    }
+
+    public static String formatForAmountDisplay(Double amount) {
+        return String.format("%.2f", amount);
     }
 
 }

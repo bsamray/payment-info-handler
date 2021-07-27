@@ -25,10 +25,15 @@ public class PaymentService implements PaymentServiceTemplate {
         LocalDate now = LocalDate.now();
         Month month = Utils.getPreviousMonth(now);
         Year year = Utils.getYearOfPreviousMonth(now);
+//
+//        List<String> acctIds = finBodyProxy.getAccounts(accessToken).stream().map(Account::getAccountUid).peek(System.out::println)
+//                .collect(Collectors.toList());
+//        log.info("account size is ({})", acctIds.size());
+
 
         return finBodyProxy.getAccounts(accessToken).stream()
                 .map(Account::getAccountUid)
-                .map(acctId -> finBodyProxy.getSpendingByCountry(accessToken, acctId,
+                .map(acctId -> finBodyProxy.getSpending(accessToken, acctId,
                             String.valueOf(year), month.name()).getTotalSpent())
                 .reduce(0.0, Double::sum);
     }
