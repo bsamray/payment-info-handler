@@ -1,0 +1,39 @@
+swagger: "2.0"
+info:
+  description: This is a project to get previous month spending for all accounts of the bank customer
+  version: 1.0.0
+  title: Spending Calculator
+basePath: /api/v1/payments
+schemes:
+  - http
+paths:
+  /out:
+    get:
+      summary: Find previous month spending
+      description: Total spending is returned for all accounts
+      operationId: getTotalSpending
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: access-token
+          description: Personal access token provided to the customer by bank for authentication
+          type: string
+          required: true
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: "#/definitions/SpendingData"
+        400:
+          description: Bad request for example when access token is not provided
+        403:
+          description: Access forbidden for example when token is expired
+
+definitions:
+  SpendingData:
+    type: object
+    properties:
+      total_spent:
+        type: string
+        description: Total amount spent as a string
