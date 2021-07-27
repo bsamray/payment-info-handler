@@ -1,9 +1,6 @@
 package com.hollandandbarrett.paymentinfohandler.model;
 
-import lombok.Data;
-
-@Data
-public class SpendingCountryBreakdown {
+public class SpendingBreakdown {
 
     private Country countryCode;
 
@@ -20,4 +17,5 @@ public class SpendingCountryBreakdown {
     private Integer percentage;
 
     private Integer transactionCount;
+
 }

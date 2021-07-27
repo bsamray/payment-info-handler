@@ -7,4 +7,7 @@ public class TotalSpendDto {
     @JsonProperty("total_spent")
     private Double totalSpent;
 
+    public TotalSpendDto(Double totalSpent) {
+        this.totalSpent = totalSpent;
+    }
 }

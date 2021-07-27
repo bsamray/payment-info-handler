@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -31,7 +32,7 @@ public class PaymentControllerTest {
     @Test
     public void whenAccessTokenNotInHeader_shouldThrowBadRequest() throws Exception {
 
-        when(paymentService.getPreviousMonthSpending(anyString())).thenReturn(Double.valueOf(1111.22));
+        when(paymentService.getPreviousMonthSpending(anyString())).thenReturn(1111.22);
 
         this.mockMvc.perform(get("/api/v1/payments/out"))
                 .andDo(print())
@@ -41,12 +42,13 @@ public class PaymentControllerTest {
     @Test
     public void whenValidRequest_shouldReturnOkResponse() throws Exception {
 
-        when(paymentService.getPreviousMonthSpending(anyString())).thenReturn(Double.valueOf(1111.22));
+        when(paymentService.getPreviousMonthSpending(anyString())).thenReturn(1111.22);
 
         this.mockMvc.perform(get("/api/v1/payments/out").header("access-token", "testToken"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("1111.22"));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("{'total_spent': 1111.22}"));
     }
 
 

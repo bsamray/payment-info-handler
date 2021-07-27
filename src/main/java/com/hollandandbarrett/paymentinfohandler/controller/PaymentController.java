@@ -1,6 +1,7 @@
 package com.hollandandbarrett.paymentinfohandler.controller;
 
 import com.hollandandbarrett.paymentinfohandler.model.dto.CommonRequestDto;
+import com.hollandandbarrett.paymentinfohandler.model.dto.TotalSpendDto;
 import com.hollandandbarrett.paymentinfohandler.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,10 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @GetMapping("/out")
-    public ResponseEntity<Double> getTotalSpending(@RequestHeader(name = "access-token") String accessToken) {
-        log.info("Received request to retrieve total spending");
-        return ResponseEntity.ok(paymentService.getPreviousMonthSpending(accessToken));
+    public ResponseEntity<TotalSpendDto> getTotalSpending(@RequestHeader(name = "access-token") String accessToken) {
+        log.debug("Received request to retrieve total spending");
+        TotalSpendDto totalSpendDto = new TotalSpendDto(paymentService.getPreviousMonthSpending(accessToken));
+        return ResponseEntity.ok(totalSpendDto);
     }
 
 }

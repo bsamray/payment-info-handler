@@ -1,2 +1,9 @@
 server:
   port: 8080
+
+application:
+  endpoint:
+    bank:
+      baseurl: https://api-sandbox.starlingbank.com
+      accounts: /api/v2/accounts
+      spending: /spending-insights/country

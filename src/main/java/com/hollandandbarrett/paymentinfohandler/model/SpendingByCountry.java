@@ -1,12 +1,7 @@
 package com.hollandandbarrett.paymentinfohandler.model;
 
-import lombok.Data;
-import lombok.Getter;
-
 import java.util.List;
 
-@Data
-@Getter
 public class SpendingByCountry {
 
     private String period;
@@ -25,6 +20,13 @@ public class SpendingByCountry {
 
     private Direction direction;
 
-    private List<SpendingCountryBreakdown> breakdown;
+    private List<SpendingBreakdown> breakdown;
 
+    public Double getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalSpent(Double totalSpent) {
+        this.totalSpent = totalSpent;
+    }
 }
