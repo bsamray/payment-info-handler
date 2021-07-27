@@ -1,5 +1,6 @@
 package com.hollandandbarrett.paymentinfohandler.controller;
 
+import com.hollandandbarrett.paymentinfohandler.exception.BankApiException;
 import com.hollandandbarrett.paymentinfohandler.service.PaymentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.client.HttpClientErrorException;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -37,13 +39,23 @@ public class PaymentControllerTest {
     }
 
     @Test
-    public void whenAccessTokenNotInHeader_shouldThrowForbidden() throws Exception {
+    public void whenHttpClientErrorException_shouldThrowForbidden() throws Exception {
 
-        when(paymentService.getPreviousMonthSpending(anyString())).thenReturn(1111.22);
+        when(paymentService.getPreviousMonthSpending(anyString())).thenThrow(HttpClientErrorException.class);
 
-        this.mockMvc.perform(get("/api/v1/payments/out"))
+        this.mockMvc.perform(get("/api/v1/payments/out").header("access-token", "testToken"))
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void whenBankApiException_shouldThrowServerError() throws Exception {
+
+        when(paymentService.getPreviousMonthSpending(anyString())).thenThrow(new BankApiException("API Error"));
+
+        this.mockMvc.perform(get("/api/v1/payments/out").header("access-token", "testToken"))
+                .andDo(print())
+                .andExpect(status().isInternalServerError());
     }
 
     @Test
