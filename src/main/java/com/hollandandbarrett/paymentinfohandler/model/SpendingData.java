@@ -1,32 +1,16 @@
 package com.hollandandbarrett.paymentinfohandler.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SpendingData {
 
-    private String period;
-
     private Double totalSpent;
-
-    private Double totalReceived;
-
-    private Double netSpend;
-
-    private Double totalSpendNetOut;
-
-    private Double totalReceivedNetIn;
-
-    private Currency currency;
-
-    private Direction direction;
-
-    private List<SpendingBreakdown> breakdown;
 
 }
